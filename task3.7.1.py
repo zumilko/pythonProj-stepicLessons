@@ -22,50 +22,39 @@ Sample Output:
 Зенит:2 1 0 1 3
 Локомотив:2 2 0 0 6
 '''
-
-team = {}; games = {}
+games = {}
+teams = {}
 game = ''
 
 for j in range(int(input())):  # в range считывается первая цифра = число строк ввода
-    game = input().strip().split(';') # ; print(f"{game}") # результат одной игры в списке
+    game = input().strip().split(';')  # далее по одной строке и делится на список с результатом одной игры
     j += 1
     key = 'game_' + str(j)
-    games[key] = game
+    games[key] = game  # просто сохранение всех списков игр в словарь
+print(game)
+# генератор вложенного словаря с нач. значениями для всех team из games
+teams = {games[key][t]: {'play': 0, 'win': 0, 'draw': 0, 'loss': 0, 'points': 0} for t in (0, 2) for key in games}
 
-print(f"\n{games}")
-for key in games:
-    k = games[key][0]
-    team[k] = {'play': 0}
-    team[k] |= {'win' : 0}
-    team[k] |= {'draw': 0}
-    team[k] |= {'loss': 0}
-    team[k] |= {'points': 0}
-    k = games[key][2]
-    team[k] = {'play': 0}
-    team[k] |= {'win': 0}
-    team[k] |= {'draw': 0}
-    team[k] |= {'loss': 0}
-    team[k] |= {'points': 0}
 for key in games:
     if int(games[key][1]) > int(games[key][3]):
-        team[games[key][0]]['play'] += 1
-        team[games[key][0]]['win'] += 1
-        team[games[key][0]]['points'] += 3
-        team[games[key][2]]['play'] += 1
-        team[games[key][2]]['loss'] += 1
+        teams[games[key][0]]['play'] += 1
+        teams[games[key][0]]['win'] += 1
+        teams[games[key][0]]['points'] += 3
+        teams[games[key][2]]['play'] += 1
+        teams[games[key][2]]['loss'] += 1
     if int(games[key][1]) < int(games[key][3]):
-        team[games[key][2]]['play'] += 1
-        team[games[key][2]]['win'] += 1
-        team[games[key][2]]['points'] += 3
-        team[games[key][0]]['play'] += 1
-        team[games[key][0]]['loss'] += 1
+        teams[games[key][2]]['play'] += 1
+        teams[games[key][2]]['win'] += 1
+        teams[games[key][2]]['points'] += 3
+        teams[games[key][0]]['play'] += 1
+        teams[games[key][0]]['loss'] += 1
     if int(games[key][1]) == int(games[key][3]):
-        team[games[key][2]]['play'] += 1
-        team[games[key][2]]['draw'] += 1
-        team[games[key][2]]['points'] += 1
-        team[games[key][0]]['play'] += 1
-        team[games[key][0]]['draw'] += 1
-        team[games[key][0]]['points'] += 1
-print(f"\n{team}")
-for k in team:
-    print(f"{k}:{team[k]['play']} {team[k]['win']} {team[k]['draw']} {team[k]['loss']} {team[k]['points']}")
+        teams[games[key][2]]['play'] += 1
+        teams[games[key][2]]['draw'] += 1
+        teams[games[key][2]]['points'] += 1
+        teams[games[key][0]]['play'] += 1
+        teams[games[key][0]]['draw'] += 1
+        teams[games[key][0]]['points'] += 1
+
+for k in teams:
+    print(f"{k}:{teams[k]['play']} {teams[k]['win']} {teams[k]['draw']} {teams[k]['loss']} {teams[k]['points']}")
