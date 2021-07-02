@@ -29,16 +29,43 @@ game = ''
 for j in range(int(input())):  # в range считывается первая цифра = число строк ввода
     game = input().strip().split(';') # ; print(f"{game}") # результат одной игры в списке
     j += 1
-    print(game)
-    team[game[0]] = {'play': 0, 'win': 0, 'draw': 0, 'loss': 0, 'points': 0}
-    team[game[2]] = {'play': 0, 'win': 0, 'draw': 0, 'loss': 0, 'points': 0}
-#print(team)
-    if int(game[1]) > int(game[3]):
-        team[game[0]]['play'] += 1
-        team[game[0]]['win'] += 1
-        team[game[0]]['points'] += 3
-        team[game[2]]['loss'] += 1
-    # if int(game[1]) < int(game[3]):
-        # team[game[0]] =
-        # team[game[2]] =
-print(team)
+    key = 'game_' + str(j)
+    games[key] = game
+
+print(f"\n{games}")
+for key in games:
+    k = games[key][0]
+    team[k] = {'play': 0}
+    team[k] |= {'win' : 0}
+    team[k] |= {'draw': 0}
+    team[k] |= {'loss': 0}
+    team[k] |= {'points': 0}
+    k = games[key][2]
+    team[k] = {'play': 0}
+    team[k] |= {'win': 0}
+    team[k] |= {'draw': 0}
+    team[k] |= {'loss': 0}
+    team[k] |= {'points': 0}
+for key in games:
+    if int(games[key][1]) > int(games[key][3]):
+        team[games[key][0]]['play'] += 1
+        team[games[key][0]]['win'] += 1
+        team[games[key][0]]['points'] += 3
+        team[games[key][2]]['play'] += 1
+        team[games[key][2]]['loss'] += 1
+    if int(games[key][1]) < int(games[key][3]):
+        team[games[key][2]]['play'] += 1
+        team[games[key][2]]['win'] += 1
+        team[games[key][2]]['points'] += 3
+        team[games[key][0]]['play'] += 1
+        team[games[key][0]]['loss'] += 1
+    if int(games[key][1]) == int(games[key][3]):
+        team[games[key][2]]['play'] += 1
+        team[games[key][2]]['draw'] += 1
+        team[games[key][2]]['points'] += 1
+        team[games[key][0]]['play'] += 1
+        team[games[key][0]]['draw'] += 1
+        team[games[key][0]]['points'] += 1
+print(f"\n{team}")
+for k in team:
+    print(f"{k}:{team[k]['play']} {team[k]['win']} {team[k]['draw']} {team[k]['loss']} {team[k]['points']}")
