@@ -26,14 +26,21 @@ Sample Output 1:
 dacabac
 '''
 
+
 #  Copyright (c) 2021.  Eugene Primakov
+
+def crypt(d, c, sc):
+    cipher = dict(zip(decode, code))
+    c = ''.join([cipher[a] for a in list(sc)])
+    return c
+
+
+def decrypt(d, c, sd):
+    cipher = dict(zip(code, decode))
+    d = ''.join([cipher[a] for a in list(sd)])
+    return d
+
+
 decode, code, str_code, str_decode = [input() for i in range(4)]
-cipher = dict(zip(decode, code))  # словарь для кодирования, склеивается из 2х списков или строк! поэлементно
-# переворачивание словаря как то так {v: k for k, v in dict_.items()}:
-decode_cipher = {cipher: k for k, cipher in cipher.items()}  # словарь для декодирования
-# print(f"{code}\n{decode}\n{cipher}\n{decode_cipher}")
-for a in str_code:
-    print(cipher[a], sep = '', end = '')
-print()
-for b in str_decode:
-    print(decode_cipher[b], sep = '', end = '')
+print(crypt(decode, code, str_code))
+print(decrypt(decode, code, str_decode))

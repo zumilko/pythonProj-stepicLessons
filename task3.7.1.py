@@ -31,10 +31,10 @@ for j in range(int(input())):  # в range считывается первая ц
     j += 1
     key = 'game_' + str(j)
     games[key] = game  # просто сохранение всех списков игр в словарь
-print(game)
-# генератор вложенного словаря с нач. значениями для всех team из games
-teams = {games[key][t]: {'play': 0, 'win': 0, 'draw': 0, 'loss': 0, 'points': 0} for t in (0, 2) for key in games}
 
+# генератор вложенного словаря с нач. значениями для всех team из games различные варианты
+# teams = {games[key][t]: {'play': 0, 'win': 0, 'draw': 0, 'loss': 0, 'points': 0} for t in (0, 2) for key in games}
+teams = {games[key][t]: dict.fromkeys(['play', 'win', 'draw', 'loss', 'points'], 0) for t in (0, 2) for key in games}
 for key in games:
     if int(games[key][1]) > int(games[key][3]):
         teams[games[key][0]]['play'] += 1

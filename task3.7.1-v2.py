@@ -22,11 +22,10 @@ Sample Output:
 Зенит:2 1 0 1 3
 Локомотив:2 2 0 0 6
 '''
-#
-win, draw, loss, points = 0, 0, 0, 0
-team = ''
-game = ''
-total = dict
-data = list(iter(input, '')); print(data) # список из строк ввода
-games = {'game' + str(i): data[i].split(';') for i in range(1, len(data))} # генератор словаря, 1е число не брать
-print(games)
+ #  попробовать генератор для ввода [input().strip().split(';') for i in range(int(input()))]
+data = list(iter(input, ''))  # ; print(data) # список из строк ввода
+data = [data[i].split(';') for i in range(1, len(data))]
+team = {data[i][0]: [1, 1, 0, 0, 3] if int(data[i][1]) > int(data[i][3]) else [1, 0, 0, 1, 0] for i in range(len(data))}
+# ames = {'game' + str(i): data[i].split(';') for i in range(1, len(data))} # генератор словаря, 1е число не брать
+print(f"{data}\n")
+print(team)
