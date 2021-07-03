@@ -30,17 +30,10 @@ dacabac
 #  Copyright (c) 2021.  Eugene Primakov
 
 def crypt(d, c, sc):
-    cipher = dict(zip(decode, code))
-    c = ''.join([cipher[a] for a in list(sc)])
+    cipher = dict(zip(d, c))
+    c = ''.join([cipher[a] for a in sc])
     return c
-
-
-def decrypt(d, c, sd):
-    cipher = dict(zip(code, decode))
-    d = ''.join([cipher[a] for a in list(sd)])
-    return d
-
 
 decode, code, str_code, str_decode = [input() for i in range(4)]
 print(crypt(decode, code, str_code))
-print(decrypt(decode, code, str_decode))
+print(crypt(code, decode, str_decode))
