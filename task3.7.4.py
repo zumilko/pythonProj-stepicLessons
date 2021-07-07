@@ -35,13 +35,10 @@ def walk(side: str, l: str) -> int:
     return c0, c1
 
 
-comand_lst: list[list[str]] = [input().split() for _ in range(int(input()))]
-print(comand_lst)
+comand_lst = [input().split() for _ in range(int(input()))]
 end_coordinate_0 = 0
 end_coordinate_1 = 0
 for i, n in enumerate(comand_lst):
     end_coordinate_0 += (walk(n[0], n[1]))[0]
     end_coordinate_1 += (walk(n[0], n[1]))[1]
-
-
 print(end_coordinate_0, end_coordinate_1 )
