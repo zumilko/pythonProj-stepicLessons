@@ -54,7 +54,6 @@ def count_val(dict_, test_summ_all=0):
     упаковки исходных данных из списка в словарь:
     :param dict_:  словарь с исходными данными.
     :param test_summ_all: сумма количества записей из данных в словаре.
-    :return: сумма количества записей из данных в словаре.
     """
     for key in dict_:
         test_summ_all += len(dict_[key])
@@ -62,23 +61,19 @@ def count_val(dict_, test_summ_all=0):
     return test_summ_all
 
 
-def average_height(dict_):
+def average_val(list_, aver_height=0):
     """
-    Функция должна вычислить средний рост учеников в классе.
-    :param dict_: исходный словарь с данными, где ключи - классы,
-    а в значениях списки с ростами учеников данного класса
-    :return:
+    Функция должна вычислить среднее от значений в числовом списке.
+    :param list_: список с цифровыми значениями
+    :param aver_height: результат
     """
-    height_ = 0
-    for key in dict_:
-        all_height = 0
-        for item in dict_[key]:
-            all_height += item
-        aver_all_height = height_ / len(dict_[key])
-        return aver_all_height
+    height = 0
+    for item in list_:
+        height += item
+    aver_height = height / len(list_)
+    return aver_height
 
 
-height = 0
 group = {}
 
 # Читать данные из файла этого формата в виде вложенного списка:
@@ -91,17 +86,13 @@ prepare(data)
 for rec in data:
     group.setdefault(rec[0], []).append(rec[2])
 
-print(f"{group}\nчисло групп (классов): {len(group)}")
-print(f"исходных данных {len(data)},"
-      f" данных в словаре {count_val(group)}")
-print(data)
+# Вывод результата в сортированном по ключу виде:
+for k in range(1,12):
+    print(k, average_val(group[k]))
 
-print(average_height(group))
 
-for k in group:
-    all_h = 0
-    for i in group[k]:
-        all_h += i
-    aver_all_h = all_h / len(group[k])
-
-    print(f"{k}, {group[k]}, {all_h}, {aver_all_h}")
+# Тестовые принты:
+# print(f"{group}\nчисло групп (классов): {len(group)}")
+# print(f"исходных данных {len(data)},"
+#       f" данных в словаре {count_val(group)}")
+# print(data)
