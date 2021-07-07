@@ -14,7 +14,8 @@
 Если про какой-то класс нет информации, необходимо вывести напротив него
 прочерк. В качестве ответа прикрепите файл с полученными данными
 о среднем росте.
- Sample Input:
+
+Sample Input:
 6	Вяххи	159
 11	Федотов	172
 7	Бондарев	158
@@ -41,23 +42,44 @@ def prepare(list_):
     :param list_: данные в виде вложенного списка
     :return: None
     """
-    for item in data:
-        item[0] = int(item[0])
-        item[2] = int(item[2])
+    for elm in list_:
+        elm[0] = int(elm[0])
+        elm[2] = int(elm[2])
 
 
 def count_val(dict_, test_summ_all=0):
-# Выводит количество значений в списке для каждого ключа
-# и считает общую сумму значений в словаре для проверки:
-    for key in group:
-        test_summ_all += len(group[key])
-        print(f"class-{key}: {len(group[key])}, ")
+    """
+    Функция выводит количество значений в списке для каждого ключа и
+    считает общую сумму значений в словаре, для проверки корректности
+    упаковки исходных данных из списка в словарь:
+    :param dict_:  словарь с исходными данными.
+    :param test_summ_all: сумма количества записей из данных в словаре.
+    :return: сумма количества записей из данных в словаре.
+    """
+    for key in dict_:
+        test_summ_all += len(dict_[key])
+        print(f"class-{key}: {len(dict_[key])}, ")
     return test_summ_all
+
+
+def average_height(dict_):
+    """
+    Функция должна вычислить средний рост учеников в классе.
+    :param dict_: исходный словарь с данными, где ключи - классы,
+    а в значениях списки с ростами учеников данного класса
+    :return:
+    """
+    height_ = 0
+    for key in dict_:
+        all_height = 0
+        for item in dict_[key]:
+            all_height += item
+        aver_all_height = height_ / len(dict_[key])
+        return aver_all_height
+
 
 height = 0
 group = {}
-group_count = 0
-test_summ_all = 0
 
 # Читать данные из файла этого формата в виде вложенного списка:
 with open('dataset_3380_5.txt', 'r') as input_file:
@@ -69,17 +91,6 @@ prepare(data)
 for rec in data:
     group.setdefault(rec[0], []).append(rec[2])
 
-
-def average_height(group_):
-    height_ = 0
-    for key in group_:
-        all_height = 0
-        for item in group_[key]:
-            all_height += item
-        aver_all_height = height_ / len(group_[key])
-        return aver_all_height
-
-
 print(f"{group}\nчисло групп (классов): {len(group)}")
 print(f"исходных данных {len(data)},"
       f" данных в словаре {count_val(group)}")
@@ -87,10 +98,10 @@ print(data)
 
 print(average_height(group))
 
-for key in group:
+for k in group:
     all_h = 0
-    for item in group[key]:
-        all_h += item
-    aver_all_h = all_h / len(group[key])
+    for i in group[k]:
+        all_h += i
+    aver_all_h = all_h / len(group[k])
 
-    print(f"{key}, {group[key]}, {all_h}, {aver_all_h}")
+    print(f"{k}, {group[k]}, {all_h}, {aver_all_h}")
