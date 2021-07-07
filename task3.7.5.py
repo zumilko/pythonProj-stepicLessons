@@ -67,11 +67,14 @@ def average_val(list_, aver_height=0):
     :param list_: список с цифровыми значениями
     :param aver_height: результат
     """
-    height = 0
-    for item in list_:
-        height += item
-    aver_height = height / len(list_)
-    return aver_height
+    try:
+        height = 0
+        for item in list_:
+            height += item
+        aver_height = height / len(list_)
+        return aver_height
+    except TypeError:
+        return '-'
 
 
 group = {}
@@ -88,8 +91,7 @@ for rec in data:
 
 # Вывод результата в сортированном по ключу виде:
 for k in range(1,12):
-    print(k, average_val(group[k]))
-
+    print(k, average_val(group.get(k)))
 
 # Тестовые принты:
 # print(f"{group}\nчисло групп (классов): {len(group)}")
